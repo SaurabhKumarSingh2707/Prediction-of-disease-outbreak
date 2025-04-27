@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Disease Prediction System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #2e3b4e;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar button {
+            display: block;
+            background: none;
+            border: none;
+            color: white;
+            width: 100%;
+            padding: 15px 20px;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .sidebar button:hover {
+            background: #44546a;
+        }
+
+        .content {
+            margin-left: 270px;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        button.predict-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>Disease Predictor</h2>
+    <button onclick="showSection('diabetes')">Diabetes Prediction</button>
+    <button onclick="showSection('heart')">Heart Disease Prediction</button>
+    <button onclick="showSection('parkinsons')">Parkinson's Prediction</button>
+</div>
+
+<div class="content">
+    <div id="diabetes" class="section">
+        <h1>Diabetes Prediction</h1>
+        <div class="form-grid" id="diabetes-form">
+            <input type="text" placeholder="Pregnancies">
+            <input type="text" placeholder="Glucose Level">
+            <input type="text" placeholder="Blood Pressure">
+            <input type="text" placeholder="Skin Thickness">
+            <input type="text" placeholder="Insulin">
+            <input type="text" placeholder="BMI">
+            <input type="text" placeholder="Diabetes Pedigree Function">
+            <input type="text" placeholder="Age">
+        </div>
+        <button class="predict-btn" onclick="predict('d')">Diabetes Test Result</button>
+        <div class="result" id="result-diabetes"></div>
+    </div>
+
+    <div id="heart" class="section" style="display: none;">
+        <h1>Heart Disease Prediction</h1>
+        <div class="form-grid" id="heart-form">
+            <input type="text" placeholder="Age">
+            <input type="text" placeholder="Sex">
+            <input type="text" placeholder="Chest Pain Type">
+            <input type="text" placeholder="Resting Blood Pressure">
+            <input type="text" placeholder="Cholesterol">
+            <input type="text" placeholder="Fasting Blood Sugar > 120">
+            <input type="text" placeholder="Rest ECG Results">
+            <input type="text" placeholder="Max Heart Rate">
+            <input type="text" placeholder="Exercise Induced Angina">
+            <input type="text" placeholder="Oldpeak">
+            <input type="text" placeholder="Slope">
+            <input type="text" placeholder="CA">
+            <input type="text" placeholder="Thal">
+        </div>
+        <button class="predict-btn" onclick="predict('heart')">Heart Test Result</button>
+        <div class="result" id="result-heart"></div>
+    </div>
+
+    <div id="parkinsons" class="section" style="display: none;">
+        <h1>Parkinson's Prediction</h1>
+        <div class="form-grid" id="parkinsons-form">
+            <input type="text" placeholder="MDVP:Fo(Hz)">
+            <input type="text" placeholder="MDVP:Fhi(Hz)">
+            <input type="text" placeholder="MDVP:Flo(Hz)">
+            <input type="text" placeholder="MDVP:Jitter(%)">
+            <input type="text" placeholder="MDVP:Jitter(Abs)">
+            <input type="text" placeholder="MDVP:RAP">
+            <input type="text" placeholder="MDVP:PPQ">
+            <input type="text" placeholder="Jitter:DDP">
+            <input type="text" placeholder="MDVP:Shimmer">
+            <input type="text" placeholder="MDVP:Shimmer(dB)">
+            <input type="text" placeholder="Shimmer:APQ3">
+            <input type="text" placeholder="Shimmer:APQ5">
+            <input type="text" placeholder="MDVP:APQ">
+            <input type="text" placeholder="Shimmer:DDA">
+            <input type="text" placeholder="NHR">
+            <input type="text" placeholder="HNR">
+            <input type="text" placeholder="RPDE">
+            <input type="text" placeholder="DFA">
+            <input type="text" placeholder="Spread1">
+            <input type="text" placeholder="Spread2">
+            <input type="text" placeholder="D2">
+            <input type="text" placeholder="PPE">
+        </div>
+        <button class="predict-btn" onclick="predict('parkinsons')">Parkinson's Test Result</button>
+        <div class="result" id="result-parkinsons"></div>
+    </div>
+</div>
+
+<script>
+    function showSection(id) {
+        document.querySelectorAll('.section').forEach(sec => sec.style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+    }
+
+    function predict(disease) {
+        let message = '';
+        switch (disease) {
+            case 'diabetes':
+                message = 'Prediction: The person is Diabetic (Mock Result)';
+                break;
+            case 'heart':
+                message = 'Prediction: The person is Not suffering from Heart Disease (Mock Result)';
+                break;
+            case 'parkinsons':
+                message = 'Prediction: The person is suffering from Parkinson\'s (Mock Result)';
+                break;
+        }
+        document.getElementById('result-' + disease).innerText = message;
+    }
+</script>
+
+</body>
+</html>
